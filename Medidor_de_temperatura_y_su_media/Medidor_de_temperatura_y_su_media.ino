@@ -1,14 +1,16 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 
-const int oneWirePin = 5;
+int Pin1 = 5;
+int Pin2 = 6;
+int Pin3 = 7;
 
-OneWire oneWireBus(oneWirePin);
+OneWire oneWireBus(Pin1);
 DallasTemperature sensor(&oneWireBus);
    
 float temperaturaM;
 float nuevoDato;
-float mediciones = 1;  
+int mediciones = 1;  
     
      
 
