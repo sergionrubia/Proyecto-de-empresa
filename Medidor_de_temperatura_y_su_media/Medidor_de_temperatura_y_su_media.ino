@@ -1,6 +1,12 @@
-const int  Pin = A0;    
-float temperaturaM;   
-float temperaturaActual;
+#include <OneWire.h>
+#include <DallasTemperature.h>
+
+const int oneWirePin = 5;
+
+OneWire oneWireBus(oneWirePin);
+DallasTemperature sensor(&oneWireBus);
+   
+float temperaturaM;
 float nuevoDato;
 float mediciones = 1;  
     
@@ -8,22 +14,23 @@ float mediciones = 1;
 
 void setup() {
   
-  pinMode(Pin, INPUT); 
   Serial.begin(9600);
+   sensor.begin(); 
 }
 
 
 void loop() {
  
-  temperaturaActual = digitalRead(Pin);
 
-  float T = (temperaturaActual + temperaturaM);
+  float T = (sensor.getTempCByIndex(0) + temperaturaM);
 
   float media = T /mediciones;
 
+  sensor.requestTemperatures();
+
   
   Serial.print("Temperatura Actual:  ");
-  Serial.println(temperaturaActual);
+  Serial.println(sensor.getTempCByIndex(0));
   
   Serial.print("Temperatura Media:  ");
   Serial.println(media);
