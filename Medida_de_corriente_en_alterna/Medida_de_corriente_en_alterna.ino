@@ -1,11 +1,26 @@
-void setup() {
+int Pin = 0;
+float valor;
+float voltaje;
+float Nvoltaje;
+float intensidad;
+float Nintensidad;
+
+
+void setup(){
+
   Serial.begin(9600);
-  analogReference(INTERNAL1V1);
+  
 }
 
-void loop() {  
-  int sensorValue = analogRead(A0); //Lectura analógica
-  float voltajeSensor = analogRead(A0) * (1.1 / 1023.0); //voltaje del sensor
-  float corriente = voltajeSensor*30.0; //corriente=VoltajeSensor*(30A/1V)
-  Serial.println(corriente,3);//enviamos por el puerto serie
+void loop(){
+
+  valor = analogRead(Pin);
+  voltaje = map(valor, 0, 1023, 0, 5000);
+  Nvoltaje = (voltaje-2500);
+  intensidad = Nvoltaje / 100000;
+  Nintensidad = intensidad * 2000;
+
+  Serial.print("La intensidad es: ");
+  Serial.print(Nintensidad,3);
+  
 }
