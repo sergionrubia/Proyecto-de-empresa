@@ -1,3 +1,4 @@
+
 int Pin = 0;
 float valor;
 float voltaje;
