@@ -4,24 +4,37 @@ float valor;
 float voltaje;
 float Nvoltaje;
 float intensidad;
-float Nintensidad;
-
+float Nsamples;
+float Irms;
 
 void setup(){
 
   Serial.begin(9600);
+  pinMode(Pin,INPUT);
+  Nsamples = 1;
   
 }
 
 void loop(){
+  
+    valor = analogRead(Pin);
+    voltaje = map(valor, 0, 1023, 0, 5000);
+    Nvoltaje = (voltaje-2500);
+    intensidad = Nvoltaje / 100000 * 2000;
+    
+    
+    Irms = (Irms + intensidad)/Nsamples;
+    
+  if (millis() %  1000 == 0){
 
-  valor = analogRead(Pin);
-  voltaje = map(valor, 0, 1023, 0, 5000);
-  Nvoltaje = (voltaje-2500);
-  intensidad = Nvoltaje / 100000;
-  Nintensidad = intensidad * 2000;
+    Serial.print("La intensidad es: ");
+    Serial.print(Irms,3);
+    
+  }
+  
+  
 
-  Serial.print("La intensidad es: ");
-  Serial.print(Nintensidad,3);
+  Nsamples++;
+  delay(10);
   
 }

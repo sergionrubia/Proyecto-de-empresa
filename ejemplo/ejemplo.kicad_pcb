@@ -2,7 +2,7 @@
 
   (general
     (thickness 1.6)
-    (drawings 1)
+    (drawings 0)
     (tracks 21)
     (zones 0)
     (modules 5)
@@ -22,7 +22,7 @@
     (34 B.Paste user)
     (35 F.Paste user)
     (36 B.SilkS user)
-    (37 F.SilkS user hide)
+    (37 F.SilkS user)
     (38 B.Mask user)
     (39 F.Mask user)
     (40 Dwgs.User user)
@@ -317,8 +317,6 @@
       (rotate (xyz 0 0 0))
     )
   )
-
-  (gr_poly (pts (xy 177.8 125.73) (xy 123.19 125.73) (xy 123.19 81.28) (xy 177.8 81.28)) (layer F.SilkS) (width 0.1))
 
   (segment (start 152.870001 85.560001) (end 153.67 86.36) (width 0.25) (layer F.Cu) (net 1))
   (segment (start 152.444999 85.134999) (end 152.870001 85.560001) (width 0.25) (layer F.Cu) (net 1))
