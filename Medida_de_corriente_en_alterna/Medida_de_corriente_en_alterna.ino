@@ -1,6 +1,6 @@
 
 int Pin = 0;
-float valor;
+int valor;
 float voltaje;
 float Nvoltaje;
 float intensidad;
@@ -10,42 +10,40 @@ float Tintensidad;
 int x = 0;
 
 void setup(){
-
   Serial.begin(9600);
   pinMode(Pin,INPUT);
   Irms = 0;
-  
-  
-  
 }
 
 void loop(){
   
-    
-    valor = analogRead(Pin);
-    voltaje = map(valor, 0, 1023, 0, 5000);
-    Nvoltaje = (voltaje-2500);
-    int y = abs(Nvoltaje);        
-    intensidad = (y * 2000.0) / 100000;
+    Nsamples = 0;
+    Tintensidad = 0;
+    unsigned long time = millis();
 
-    Tintensidad = Tintensidad + intensidad;
-
-    Nsamples++;
-
-    
-
-    if (millis() %  1000 == 0){
-
-      Irms = Tintensidad / Nsamples;
-
-      Serial.print("La intensidad es: ");
-      Serial.println(Irms);
-
-      Nsamples = 0;
-      Tintensidad = 0;
+    while (millis() < (time + 80)){
       
+      valor = analogRead(Pin);
+      // Serial.println("valor:");Serial.println(valor);
+      //Serial.println("millis():");Serial.println(millis());
+      
+      voltaje = map(valor, 0, 1023, 0, 5000);
+      Nvoltaje = (voltaje-2500);
+      int y = abs(Nvoltaje);        
+      intensidad = (y * 2000.0) / 100000;
+  
+      Tintensidad = Tintensidad + intensidad;
+  
+      Nsamples++;
     }
 
-    
-  delay(1);
+    Irms = Tintensidad / Nsamples;
+
+    Serial.print("La intensidad es: ");
+    Serial.println(Irms);
+    Serial.print("Tintensidad: ");
+    Serial.println(Tintensidad);
+    Serial.print("Nsamples: ");
+    Serial.println(Nsamples);   
+    delay(1000);
 }
